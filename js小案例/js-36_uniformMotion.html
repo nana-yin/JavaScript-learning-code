@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>JS运动5 匀速运动</title>
+    <style>
+        h3{
+            font-size: 36px;
+        }
+        .speed,.distance,.farDis{
+            display: block;
+            width: 600px;
+            margin-bottom: 10px;
+            text-indent: 1rem;
+            font-size: 16px;
+            padding: 5px 0px;
+        }
+        button{
+            font-size: 18px;
+            padding: 10px;
+            margin-bottom: 10px;
+            cursor: pointer;
+        }
+        .div_box{
+            width: 200px;
+            height: 200px;
+            border: 2px solid red;
+            box-sizing: border-box;
+            background-color: lightblue;
+            border-radius: 50%;
+            position: absolute;
+            left: 0;
+        }
+        .line{
+            width: 1px;
+            height: 600px;
+            background-color: black;
+            position: absolute;
+            left: 800px;
+            top: 0px;
+        }
+        .line2{
+            width: 1px;
+            height: 600px;
+            background-color: black;
+            position: absolute;
+            left: 1200px;
+            top: 0px;
+        }
+    </style>
+</head>
+<body>
+    <h3>请注意观察运行数据变化</h3>
+    <input type="text" name="speed" class="speed" value="">
+    <input type="text" name="distance" class="distance" value="">
+    <input type="text" name="farDis" class="farDis" value="">
+    <button type="button" class="btn">与左侧距离800</button>
+    <button type="button" class="far_btn">与左侧距离1200</button>
+    <div class="div_box"></div>
+    <div class="line"></div>
+    <div class="line2"></div>
+    <script>
+        var btn = document.getElementsByClassName("btn")[0],
+            farBtn = document.getElementsByClassName("far_btn")[0],
+            speedValue = document.getElementsByClassName("speed")[0],
+            distance = document.getElementsByClassName("distance")[0],
+            farDis = document.getElementsByClassName("farDis")[0],
+            divBox = document.getElementsByClassName("div_box")[0],
+            circleTime = null;
+        window.onload = function(){
+            btn.onclick = function(){
+               move(800);
+            }
+            farBtn.onclick = function(){
+               move(1200);
+            }
+        }
+        function move(target){
+            clearInterval(circleTime);
+            circleTime = setInterval(function(){
+                var speed;
+                if(divBox.offsetLeft < target){
+                    speed = 7;
+                }else{
+                    speed = -7;
+                }
+
+                speedValue.value = "speed的速度变化：" + speed;
+                distance.value = "box.offsetLeft距离左侧的值：" + divBox.offsetLeft;
+                var rightDistance = Math.abs(target - divBox.offsetLeft);
+                farDis.value = "与线的距离（绝对值）：" + rightDistance;
+                if(rightDistance < 7){
+                    // clearInterval(circleTime);
+                    divBox.style.left = target + "px";
+                }else{
+                    divBox.style.left = divBox.offsetLeft + speed + "px";
+                    // console.log(divBox.style.left)
+                }
+            },30)
+        }
+    </script>
+</body>
+</html>

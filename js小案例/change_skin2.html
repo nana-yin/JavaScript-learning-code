@@ -1,0 +1,63 @@
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>网页换肤2</title>
+    <style>
+    *{
+        padding: 0;
+        margin: 0;
+    }
+    body{
+        background: url('images/pic1.jpg');
+    }
+    .btn_box{
+        text-align: center;
+        margin: 30px 0px 0px 30px;
+    }
+    .btn{
+        outline: none;
+        border: none;
+        padding: 20px 30px;
+        font-size: 36px;
+        color: #333;
+        background-color: rgba(236, 82, 82, 0.7);
+        border-radius: 10px;
+        cursor: pointer;
+    }
+    .btn:hover{
+        color: #fff;
+        background-color: rgba(0, 0, 97, 0.7);
+    }
+    </style>
+</head>
+<body>
+    <div class="btn_box">
+        <button class="btn">美食</button>
+        <button class="btn">美女</button>
+    </div>
+    <script>
+        var aBtn = document.getElementsByClassName("btn"),
+            body = document.getElementsByTagName("body")[0],
+            preIndex = 0;
+        // console.log(body)
+        for(var i = 0; i < aBtn.length; i++){
+            aBtn[i].index = i;
+            aBtn[i].onclick = function(){
+                aBtn[preIndex].style.background = "rgba(236, 82, 82, 0.7)";
+                aBtn[preIndex].style.color = "#333";
+                
+                aBtn[this.index].style.background = "rgba(0, 0, 97, 0.7)";
+                aBtn[this.index].style.color = "#fff";
+                preIndex = this.index;
+                if(this.innerText === "美女"){
+                    body.style.background = "url('images/pic1.jpg')";
+                }else if(this.innerText === "美食"){
+                    body.style.background = "url('images/pic2.jpg')";
+                }
+            }
+        }
+    </script>
+</body>
+</html>

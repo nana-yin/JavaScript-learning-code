@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>DOM操作应用</title>
+    <style>
+        *{
+            padding:0px;
+            margin: 0;
+        }
+        #box{
+            text-align: center;
+            overflow: hidden;
+            margin: 30px;
+        }
+        input{
+            display: block;
+            font-size: 24px;
+            padding: 10px;
+            float: left;
+        }
+        #btn{
+            display: block;
+            font-size: 24px;
+            margin-left: 20px;
+            float: left;
+            margin-top: 8px;
+        }
+        #parents{
+            width: 450px;
+            margin-left: 30px;
+        }
+        .color{
+            display: inline-block;
+            padding: 10px;
+            margin-bottom: 10px;
+            font-size: 18px;
+            color: #fff;
+            margin-right:10px;
+            background-color: darksalmon;
+        }
+    </style>
+</head>
+<body>
+    <div id="box">
+        <input type="text" name="node">
+        <button type="submit" id="btn">创建一个节点</button>
+    </div>
+    <div id="parents">
+
+    </div>
+    <script>
+        var box = document.getElementById("box"),
+            input = box.getElementsByTagName("input")[0],
+            btn = document.getElementById("btn"),
+            par = document.getElementById("parents"),
+            reg = /^\s*$/;
+        // appendChild
+        // btn.onclick = function(){
+        //     var span = document.createElement("span");
+        //     span.setAttribute("class","color");
+        //     if(reg.test(input.value)){
+        //         alert("节点为空!")
+        //     }else{
+        //         span.innerText = input.value;
+        //         par.appendChild(span);
+        //     }
+        // }
+        
+        //插入元素
+        //insertBefore(新节点,原有节点)——>在已有元素前插入
+        btn.onclick = function(){
+            var span = document.createElement("span");
+            span.setAttribute("class","color");
+            if(reg.test(input.value)){
+                alert("节点为空!")
+            }else{
+                span.innerText = input.value;
+                par.appendChild(span);
+            }
+
+            if(span.length > 0){
+                //在IE下面,必须要先判断这个span数组是否存在,不存在则insertBefore到序插入
+                par.insertBefore(span,span[0]);
+            }
+        }
+    </script>
+</body>
+</html>

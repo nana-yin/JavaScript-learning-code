@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>延时提示</title>
+    <style>
+        .now{
+            width: 200px;
+            height: 200px;
+            background: pink;
+            cursor: pointer;
+        }
+        .delay{
+            width: 300px;
+            height: 100px;
+            background-color: lightgreen;
+            position: absolute;
+            left: 220px;
+            top: 50px;
+            display: none;
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body>
+    <div class="now"></div>
+    <div class="delay"></div>
+    <script>
+        var now = document.getElementsByClassName("now")[0],
+            delay = document.getElementsByClassName("delay")[0],
+            time_out = null;
+        now.onmouseover = delay.onmouseover = function(){
+            delay.style.display = 'block';
+            clearTimeout(time_out);
+        }
+        now.onmouseout = delay.onmouseout = function(){
+            time_out = setTimeout(function(){
+                delay.style.display = 'none';
+            },1000)
+        }
+    </script>
+</body>
+</html>

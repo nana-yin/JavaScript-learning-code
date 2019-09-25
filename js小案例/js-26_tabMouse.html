@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>table应用-鼠标移入隔行高亮</title>
+    <style>
+        table{
+            width: 800px;
+            margin: 0 auto;
+            text-align: center;
+            border: 1px solid black;
+        }
+        table td{
+            border: 1px solid #999;
+            padding: 5px 0px;
+        }
+    </style>
+</head>
+<body>
+    <table id="box">
+        <thead>
+            <tr>
+                <td>ID</td>
+                <td>姓名</td>
+                <td>年龄</td>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>1</td>
+                <td>张三</td>
+                <td>15</td>
+            </tr>
+            <tr>
+                <td>2</td>
+                <td>李四</td>
+                <td>12</td>
+            </tr>
+            <tr>
+                <td>3</td>
+                <td>王五</td>
+                <td>54</td>
+            </tr>
+            <tr>
+                <td>4</td>
+                <td>赵六</td>
+                <td>19</td>
+            </tr>
+            <tr>
+                <td>5</td>
+                <td>孙七</td>
+                <td>26</td>
+            </tr>
+            <tr>
+                <td>6</td>
+                <td>周八</td>
+                <td>29</td>
+            </tr>
+            <tr>
+                <td>7</td>
+                <td>吴九</td>
+                <td>25</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <script>
+        var table = document.getElementById("box"),
+            tbody = document.getElementsByTagName("tbody")[0],
+            tr = tbody.getElementsByTagName("tr"),
+            oldColor = '';
+            console.log(tr.length)
+            // table.tBodies[0].rows[0].cells[0]可以取得一个td
+            // 可以通过insertRow和insertCell插入tr和td
+            console.log(table.tBodies[0].rows[0]);
+        for(let i = 0; i < tr.length; i++){
+            if(i % 2 === 0){
+                // tr[i].style.background = "lightblue";
+                table.tBodies[0].rows[i].style.background = "lightblue";
+            }else{
+                // tr[i].style.background = "lightpink";
+                table.tBodies[0].rows[i].style.background = "lightpink";
+            }
+            // tr[i].onmouseover = function(){
+            //     oldColor = this.style.background;
+            //     tr[i].style.background = "red";
+            //     console.log(oldColor)
+            // }
+            // tr[i].onmouseout = function(){
+            //     tr[i].style.background = oldColor;
+            // }
+            table.tBodies[0].rows[i].onmouseover = function(){
+                oldColor = this.style.background;
+                table.tBodies[0].rows[i].style.background = "red";
+                console.log(oldColor)
+            }
+            table.tBodies[0].rows[i].onmouseout = function(){
+                table.tBodies[0].rows[i].style.background = oldColor;
+            }
+        }
+    </script>
+</body>
+</html>

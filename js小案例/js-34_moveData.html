@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>JS运动——记录运动数据</title>
+    <style>
+        h3{
+            font-size: 36px;
+        }
+        .speed,.distance{
+            display: block;
+            width: 600px;
+            margin-bottom: 10px;
+            text-indent: 1rem;
+            font-size: 16px;
+            padding: 5px 0px;
+        }
+        #btn{
+            font-size: 18px;
+            padding: 10px;
+            margin-bottom: 10px;
+            cursor: pointer;
+        }
+        .div_box{
+            width: 200px;
+            height: 200px;
+            border: 2px solid red;
+            box-sizing: border-box;
+            background-color: lightblue;
+            border-radius: 50%;
+            position: absolute;
+            left: 0;
+        }
+        .line{
+            width: 1px;
+            height: 600px;
+            background-color: black;
+            position: absolute;
+            left: 1000px;
+            top: 0px;
+        }
+    </style>
+</head>
+<body>
+    <h3>请注意观察运行数据变化</h3>
+    <input type="text" name="speed" class="speed" value="">
+    <input type="text" name="distance" class="distance" value="">
+    <button type="button" id="btn">点击按钮使圆形向右移动</button>
+    <div class="div_box"></div>
+    <div class="line"></div>
+    <script>
+        var btn = document.getElementById("btn"),
+            speedValue = document.getElementsByClassName("speed")[0],
+            distance = document.getElementsByClassName("distance")[0],
+            divBox = document.getElementsByClassName("div_box")[0],
+            circleTime = null;
+        window.onload = function(){
+            btn.onclick = function(){
+                circleTime = setInterval(function(){
+                    if(divBox.offsetLeft > 999){
+                        // alert(divBox.offsetLeft)
+                        clearInterval(circleTime)
+                    }
+                    console.log(divBox.offsetLeft)
+                    // 让速度和距离成正比
+                    // 速度 = （目标值 - 当前距离左侧的值）/ 缩放系数
+                    var speed = (1000 - divBox.offsetLeft) / 10;
+                    // speed = speed > 0 ? Math.ceil(speed) : Math.floor(speed);
+                    speed = Math.ceil(speed);
+
+                    speedValue.value = "speed的速度变化：" + speed;
+                    distance.value = "box.offsetLeft距离左侧的值：" + divBox.offsetLeft;
+                    divBox.style.left = divBox.offsetLeft + speed + "px";
+                },30)
+            }
+        }
+    </script>
+</body>
+</html>

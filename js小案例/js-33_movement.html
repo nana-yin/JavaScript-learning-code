@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>JS运动1</title>
+    <style>
+        *{
+            padding: 0;
+            margin: 0;
+        }
+        #move{
+            font-size: 24px;
+            padding: 5px 10px;
+            cursor: pointer;
+        }
+        .circle{
+            width: 150px;
+            height: 150px;
+            background-color: lightseagreen;
+            border-radius: 50%;
+            margin: 20px 10px;
+        }
+        .left_nav{
+            width: 300px;
+            height: 400px;
+            background-color: #aaa;
+            position: absolute;
+            left: -300px;
+        }
+        .left_font{
+            width: 40px;
+            font-size: 36px;
+            color: #fff;
+            padding: 5px 10px;
+            background-color: #333;
+            cursor: pointer;
+            position: absolute;
+            left: 300px;
+        }
+    </style>
+</head>
+<body>
+    <button type="button" id="move" >点击让圆形滚动</button>
+    <div class="circle"></div>
+    <div class="left_nav">
+        <div class="left_font">左侧导航</div>
+    </div>
+    <script>
+        
+        window.onload = function(){
+            var moveBtn = document.getElementById("move"),
+                circle = document.getElementsByClassName("circle")[0],
+                circleTime = null,
+                leftNav = document.getElementsByClassName("left_nav")[0],
+                leftFont = leftNav.getElementsByClassName("left_font")[0];
+            moveBtn.onclick = function(){
+                // 保证每次都执行一个定时器
+                clearInterval(circleTime);
+                circleTime = setInterval(function(){
+                    let speed = 10;
+                    if(circle.offsetLeft >= 500){
+                        // console.log(circle.offsetLeft)
+                        clearInterval(circleTime);
+                    }else{
+                        circle.style.marginLeft = circle.offsetLeft + speed + "px";
+                    }
+                },30)
+            }
+
+            function mouseFuc(velocity,distance){
+                clearInterval(circleTime);
+                circleTime = setInterval(function(){
+                    if(leftNav.offsetLeft == distance){
+                        // console.log(circle.offsetLeft)
+                        clearInterval(circleTime);
+                    }else{
+                        leftNav.style.left = leftNav.offsetLeft + velocity + "px";
+                    }
+                },30)
+            }
+
+            // 鼠标移入
+            leftNav.onmouseover = function(){
+                mouseFuc(50,0);
+            }
+            // 鼠标移出
+            leftNav.onmouseout = function(){
+                mouseFuc(-50,-300);
+            }
+        }
+    </script>
+</body>
+</html>

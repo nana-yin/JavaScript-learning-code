@@ -1,0 +1,79 @@
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>js中的函数</title>
+    <style>
+        /* #div_box{
+            width: 300px;
+            height: 300px;
+            background-color: pink;
+        } */
+    </style>
+</head>
+<body>
+    <div id="div_box" style="width: 300px;height: 300px;background: pink"></div>
+    <script>
+        // 1.返回某个值
+        function fuc1(){
+            return 100;
+        }
+        document.write("第一个函数的返回值为:" + fuc1() + "<br/>");
+
+        // 2.传递参数
+        function fuc2(a,b){
+            return a+b;
+        }
+        document.write("第二个函数的返回值为:" + fuc2(10,100) + "<br/>");
+
+        // 3.arguments——>可变的参数
+        /* 
+            在JavaScript中,arguments对象是比较特别的一个对象,实际上是当前函数的一个内置属性。
+            arguments非常类似Array，但实际上又不是一个Array实例。
+            可以通过如下代码得以证实（实际上,在函数funcArg中,
+            调用arguments是不必要写成funcArg.arguments,直接写arguments即可）。
+        */
+        function args(){
+            var ran = Math.random();  //结果为0-1间的一个随机数(包0不包1) 
+            // alert(ran)
+            document.write("arguments这个类数组的长度：" + arguments.length + "<br/>")
+            for(var i = 0; i < arguments.length; i++){
+                // alert(arguments[i])
+                ran = ran * arguments[i];
+            }
+            return ran;
+        }
+        // args(30)  //1是函数的参数,保存在arguments中,如果不传参,arguments的长度为0
+        document.write("arguments小例子结果：" + args(30) + "<br/>");
+
+        // CSS函数的arguments的用法
+        function css(node,name,value){
+            if(node == 2){
+                return(node.style[name]);
+            }else{
+                node.style[name] = value;
+            }
+        }
+        function argumens(){
+            alert("一共有" + arguments.length + "个参数");
+            if(arguments.length == 2){
+                return arguments[0].style[arguments[1]];
+            }else{
+                return arguments[0].style[arguments[1]] = arguments[2];
+            }
+        }
+        window.onload = function(){
+            var divBox = document.getElementById("div_box");
+            // 获取数据
+            // 只能获取内嵌的样式，不能获取内联的样式
+            var data = argumens(divBox,"background");
+            alert("当前模块的背景颜色1：" + data)
+            // var aaa = argumens(divBox,"background","red")
+            // alert("当前模块的背景颜色2：" + aaa)
+            // 设置数据
+            css(divBox,"background","lightblue");
+        }
+    </script>
+</body>
+</html>

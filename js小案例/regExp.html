@@ -1,0 +1,61 @@
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>正则表达式</title>
+    <style>
+        .box{
+            width: 100%;
+            text-align: center;
+            margin-top: 100px;
+            /* border: 1px solid red; */
+        }
+        #input_ip{
+            width: 300px;
+            height: 50px;
+            text-indent: 20px;
+            margin-right: 20px;
+            outline: none;
+        }
+        .btn{
+            width: 100px;
+            height: 45px;
+            background-color: #6CBB4A;
+            color: #fff;
+            font-size: 18px;
+            line-height: 45px;
+            outline: none;
+            border: none;
+            border-radius: 4px;
+        }
+    </style>
+</head>
+<body>
+    <div class="box">
+        <input type="text" id="input_ip" placeholder="请输入ip地址">
+        <button type="button" class="btn">检测</button>
+    </div>
+    <script>
+        //0～9     \d      单个数字  
+    　　//10～99   [1-9]\d  两位数   (\d{1,2}) 
+    　　//100～199 1\d\d    百位为1的三位数  1\d{1,2})
+    　　//200～249 2[0-4]\d 三位数，百位是2，十位是0～9  (2[0-4]\d)
+    　　//250～255 25[0-5]  三位数，百位是2，十位是5，个位是0～5  (25[0-5])
+        //正着写会导致匹配(例如254)的时候,得到的是2、5、4三个匹配,所以要倒着写
+        var reg = /^(\d{1,2}|1\d\d|2[0-4]\d|25[0-5])\.(\d{1,2}|1\d\d|2[0-4]\d|25[0-5])\.(\d{1,2}|1\d\d|2[0-4]\d|25[0-5])\.(\d{1,2}|1\d\d|2[0-4]\d|25[0-5])$/,
+            input_ip = document.getElementById("input_ip"),
+            btn = document.getElementsByClassName("btn");
+        btn[0].onclick = function(){
+            var ip_value = input_ip.value,
+                result = reg.test(ip_value);
+                if(result){
+                    alert("IP地址合法！")
+                }else{
+                    alert("IP地址不合法！")
+                }
+                // console.log(ip_value)
+        }
+    </script>
+</body>
+</html>

@@ -1,0 +1,82 @@
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>复选全选取消2</title>
+    <style>
+    *{
+        padding: 0;
+        margin: 0;
+    }
+    button{
+        display: block;
+        margin: 30px auto;
+        padding: 10px 20px;
+        font-size: 36px;
+        color: #333;
+        cursor: pointer;
+    }
+    .select_box{
+        margin-top: 30px;
+        text-align: center;
+    }
+    .one{
+        display: block;
+        font-size: 24px;
+        margin-right: 20px;
+    }
+    .fruit{
+        margin-right: 5px;
+    }
+    </style>
+</head>
+<body>
+    <button type="submit" class="sel_all">全选</button>
+    <div class="select_box">
+        <span class="one">
+            <input type="checkbox" name="fruit" class="fruit">草莓
+        </span>
+        <span class="one">
+            <input type="checkbox" name="fruit" class="fruit">草莓
+        </span>
+        <span class="one">
+            <input type="checkbox" name="fruit" class="fruit">草莓
+        </span>
+        <span class="one">
+            <input type="checkbox" name="fruit" class="fruit">草莓
+        </span>
+        <span class="one">
+            <input type="checkbox" name="fruit" class="fruit">草莓
+        </span>
+        <span class="one">
+            <input type="checkbox" name="fruit" class="fruit">草莓
+        </span>
+        <span class="one">
+            <input type="checkbox" name="fruit" class="fruit">草莓
+        </span>
+        <span class="one">
+            <input type="checkbox" name="fruit" class="fruit">草莓
+        </span>
+    </div>
+    <script>
+        var aBtn = document.getElementsByClassName("sel_all")[0],
+            aInput = document.getElementsByTagName("input"),
+            isCheck = null;
+        aBtn.onclick = function(){
+            // console.log(this.innerText)
+            if(this.innerText === "全选"){
+                isCheck = true;
+                this.innerText = "取消";
+            }else if(this.innerText === "取消"){
+                isCheck = false;
+                this.innerText = "全选";
+            }
+            
+            for(let i = 0; i < aInput.length; i++){
+                aInput[i].checked = isCheck;
+            }
+        }
+    </script>
+</body>
+</html>

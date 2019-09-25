@@ -1,0 +1,49 @@
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>[输出九九乘法梯形表]</title>
+    <style>
+        *{
+            padding: 0;
+            margin: 0;
+        }
+        .title{
+            margin: 30px 0px 30px 30px;
+            font-size: 36px;
+            color: #333;
+        }
+        table{
+            width: 900px;
+            height: 500px;
+            text-align: center;
+            /* 为表格设置合并边框模型 */
+            border-collapse: collapse;
+            margin-left: 30px;
+        }
+        .a_span{
+            border: 1px solid red;
+        }
+    </style>
+</head>
+<body>
+    <div class="title">九九乘法表</div>
+    <script>
+        function calc(){
+            var sum = 0;
+            document.write("<table>");
+            for(var i = 1; i < 10; i++){
+                document.write("<tr>")
+                for(var j = 1; j <= i; j++){
+                    sum = i * j;
+                    document.write("<td class='a_span'>" + j + " * " + i + " = " + sum + "</td>")
+                }
+                document.write("</tr>");
+            }
+            document.write("</table>");
+        }
+        calc();
+    </script>
+</body>
+</html>
