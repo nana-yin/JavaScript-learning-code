@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>table应用-表格数据的模糊搜索search</title>
+    <style>
+        #add{
+            margin: 30px auto;
+            text-align: center;
+        }
+        table{
+            width: 800px;
+            margin: 0 auto;
+            text-align: center;
+            border: 1px solid black;
+        }
+        table td{
+            border: 1px solid #999;
+            padding: 5px 0px;
+        }
+    </style>
+</head>
+<body>
+    <div id="add">
+        姓名：<input type="text" name="name" class="name">
+        年龄：<input type="text" name="age" class="age">
+        <button type="button" class="add_btn">添加</button>
+        <button type="button" class="search_btn">搜索</button>
+        <p id='error' style="display:none"></p>
+    </div>
+    <table id="box">
+        <thead>
+            <tr>
+                <td>ID</td>
+                <td>姓名</td>
+                <td>年龄</td>
+                <td>操作</td>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>1</td>
+                <td>张三</td>
+                <td>15</td>
+                <td><a href="javascript:;">删除</a></td>
+            </tr>
+            <tr>
+                <td>2</td>
+                <td>李四</td>
+                <td>12</td>
+                <td><a href="javascript:;">删除</a></td>
+            </tr>
+            <tr>
+                <td>3</td>
+                <td>王五</td>
+                <td>54</td>
+                <td><a href="javascript:;">删除</a></td>
+            </tr>
+            <tr>
+                <td>4</td>
+                <td>赵六</td>
+                <td>19</td>
+                <td><a href="javascript:;">删除</a></td>
+            </tr>
+            <tr>
+                <td>5</td>
+                <td>孙七</td>
+                <td>26</td>
+                <td><a href="javascript:;">删除</a></td>
+            </tr>
+            <tr>
+                <td>6</td>
+                <td>周八</td>
+                <td>29</td>
+                <td><a href="javascript:;">删除</a></td>
+            </tr>
+            <tr>
+                <td>7</td>
+                <td>吴九</td>
+                <td>25</td>
+                <td><a href="javascript:;">删除</a></td>
+            </tr>
+        </tbody>
+    </table>
+
+    <script>
+        var table = document.getElementById("box"),
+            tbody = document.getElementsByTagName("tbody")[0],
+            tr = tbody.getElementsByTagName("tr"),
+            aName = document.getElementsByClassName("name")[0],
+            age = document.getElementsByClassName("age")[0],
+            addBtn = document.getElementsByClassName("add_btn")[0],
+            searchBtn = document.getElementsByClassName("search_btn")[0],
+            oClick = document.getElementsByTagName("a"),
+            index = table.tBodies[0].rows.length + 1,
+            reg = /^\s*$/;
+            // console.log(aName)
+        
+        // 删除
+        function del(obj){
+            for(let i = 0; i < obj.length; i++){
+                obj[i].onclick = function(){
+                    alert("你即将删除第" + i + "个input")
+                    tbody.removeChild(this.parentNode.parentNode);
+                    // console.log(this.parentNode.parentNode)
+                }
+            }
+        }
+
+        addBtn.onclick = function(){
+            let nameValue = aName.value;
+            let ageValue = age.value;
+            // console.log(nameValue)
+            // console.log(ageValue)
+            if(reg.test(nameValue) || reg.test(ageValue)){
+                alert("姓名或者年龄不能为空！")
+            }else{
+                var tr = document.createElement("tr");
+                var td1 = document.createElement("td");
+                td1.innerText = index;
+                tr.appendChild(td1);
+                var td2 = document.createElement("td");
+                td2.innerText = nameValue;
+                tr.appendChild(td2);
+                var td3 = document.createElement("td");
+                td3.innerText = ageValue;
+                tr.appendChild(td3);
+                var td4 = document.createElement("td");
+                var a = document.createElement("a");
+                a.setAttribute("href","javascript:;");
+                a.innerHTML = "删除";
+                td4.appendChild(a);
+                tr.appendChild(td4);
+                tbody.appendChild(tr);
+                index++;
+
+                // 删除
+                let click = document.getElementsByTagName("a");
+                del(click);
+            }
+        }
+        del(oClick);
+
+        // toLowerCase 英文强制转小写
+        // 搜索的时候用于忽略大小写
+        searchBtn.onclick = function(){
+            for(let i = 0; i < tr.length; i++){
+                // console.log(tr.length)
+                // console.log(i)
+                var transName = table.tBodies[0].rows[i].cells[1].innerText.toLowerCase();
+                var oName = aName.value.toLowerCase();
+                var transAge = table.tBodies[0].rows[i].cells[2].innerText.toLowerCase();
+                var oAge = age.value.toLowerCase();
+
+                // 判断关键字不能为空
+                var oError = document.getElementById('error');
+                if (oName === "" || oAge === "") {
+                    oError.style.display='block';
+                	oError.innerHTML='关键字不能为空';
+                	return false;
+                }else{
+                	oError.style.display='none';
+                	oError.innerHTML='';
+                }
+
+                // search 模糊搜索  找到并且返回字符串出现的位置,如果没有找到返回-1
+                // split 多关键字搜索 切分字符串
+                var arrName = oName.split(" ");
+                var arrAge = oAge.split(" ");
+                table.tBodies[0].rows[i].style.background='';
+                table.tBodies[0].rows[i].style.color='black';
+                // console.log(arrName)
+                // 原字符串.search()  
+                for(let j = 0; j < arrName.length; j++){
+                    // console.log(arrName.length)
+                    if (transName.search(arrName[j]) != -1 && transAge.search(arrAge[j]) != -1) {
+		        		table.tBodies[0].rows[i].style.background='lightgreen';
+		        		table.tBodies[0].rows[i].style.color='yellow';
+		        	}
+                }
+            }
+        }
+    </script>
+</body>
+</html>

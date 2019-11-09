@@ -1,0 +1,62 @@
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>延时提示</title>
+    <style>
+        *{
+            padding: 0;
+            margin: 0;
+        }
+        .pic_box{
+            /* border: 1px solid red; */
+            margin: 30px;
+        }
+        img{
+            cursor: pointer;
+        }
+        .text{
+            opacity: 0;
+            width: 580px;
+            position: absolute;
+            top: 25%;
+            padding: 20px 30px;
+            background-color: #eee;
+            border-radius: 10px;
+            z-index: -1;
+            transition: all 0.8s;
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body>
+    <div class="pic_box">
+        <img src="images/huawei.jpg" alt="">
+        <div class="text">华为是全球领先的ICT(信息与通信)基础设施和智能终端提供商,致力于把数字世界带入每个人、每个家庭、每个组织,构建万物互联的智能世界。华为是全球领先的ICT(信息与通信)基础设施和智能终端提供商,致力于把数字世界带入每个人、每个家庭、每个组织,构建万物互联的智能世界。</div>
+    </div>
+    <script>
+        var img = document.getElementsByTagName("img")[0],
+            text = document.getElementsByClassName("text")[0],
+            time = null;
+        /* mouseover会冒泡，
+           mouseenter不会冒泡。
+           就是当设定了多个div的嵌套时,即建立了父子关系,
+           当父div与子div共同加入了onclick事件时,
+           当触发了子div的onclick事件后，子div进行相应的js操作。
+           但是父div的onclick事件同样会被触发。
+           这就造成了事件的多层并发，导致了页面混乱。这就是冒泡事件。
+        */
+        text.onmouseenter = img.onmouseenter = function(){
+            clearTimeout(time)
+            //cssText 的本质就是设置 HTML 元素的 style 属性值。
+            text.style.cssText = "opacity: 1; left:700px; z-index:9"
+        }
+        text.onmouseleave = img.onmouseleave = function(){
+            time = setTimeout(function(){
+                text.style.cssText = "opacity: 0; left:30px; z-index:-1"
+            },500)  
+        }
+    </script>
+</body>
+</html>

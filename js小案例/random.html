@@ -1,0 +1,116 @@
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>随机数</title>
+    <style>
+        *{
+            padding: 0;
+            margin: 0;
+        }
+        #body_box{
+            width: 1200px;
+            margin: 30px auto;
+            overflow: hidden;
+            /* border: 1px solid red; */
+        }
+        .name{
+            padding: 10px 20px;
+            border: 1px solid rgb(140, 147, 245);
+            border-radius: 10px;
+            float: left;
+            font-size: 24px;
+            color: #333;
+            line-height: 30px;
+            margin-right: 10px;
+            margin-bottom: 10px;
+        }
+        .btn_all{
+            text-align: center;
+        }
+        .btn,.stop{
+            outline: none;
+            border: none;
+            padding: 10px 50px;
+            font-size: 24px;
+            color: #fff;
+            line-height: 50px;
+            background: lightblue;
+            border-radius: 10px;
+            margin: 30px auto;
+            cursor: pointer;
+        }
+        .btn:hover,.stop:hover{
+            background: rgb(90, 173, 200);
+        }
+    </style>
+</head>
+<body>
+    <!-- 这个界面所能实现的功能：点击开始进行抽取，点击结束进行确定 -->
+    <div id="body_box"></div>
+    <div class="btn_all">
+        <button type="button" class="btn">开始</button>
+        <button type="button" class="stop">结束</button>
+    </div>
+    <script>
+        var arr = ['吴云龙','朱伟祺','时山钧','李彪','吴燚波','付凤云','桂新阳',
+                   '陈赞','叶胜隆','章辉','闫铮','徐泰彬','吴雄睿','邵挺','姜铭',
+                   '毛文女','严敏','王加晓','谢寅楚','蔡楚宏','谢泽群','郑梦圆','尹娜',
+                   '周厚新','王子豪','蒋志伟','刘锦哲','周峰','张圣荣','潘宇熙'];
+        var oDiv = document.getElementById("body_box"),
+            aBtn = document.getElementsByClassName('btn')[0],
+            aStop = document.getElementsByClassName('stop')[0],
+            str = '',
+            strArr = [],
+            preIndex = 0;
+        // 显示人名
+        for(var i = 0; i < arr.length; i++){
+            // console.log(arr.length)
+            var nDiv = document.createElement("div");
+            nDiv.setAttribute('class','name');
+            var nText = document.createTextNode(arr[i]);
+            nDiv.appendChild(nText);
+            oDiv.appendChild(nDiv);
+        }
+        // 随机生成 0~255 之间的整数
+        function getRandom(min, max) {
+            return Math.round(Math.random() * 255);
+        }
+        // 返回我们要的颜色
+        function getRandomColor() {
+            var c1 = getRandom(0, 255),
+                c2 = getRandom(0, 255),
+                c3 = getRandom(0, 255);
+            return 'rgb(' + c1 + ',' + c2 + ',' + c3 + ')'
+        }
+        // 点击开始
+        aBtn.onclick = function(){
+            var thisIndex;
+            var nameDiv = document.getElementsByClassName('name');
+                nameDiv[preIndex].style.background = 'none';
+            var interval = setInterval(function(e){
+                thisIndex = Math.round(Math.random() * 30);
+                str = arr[thisIndex];
+                strArr.push(str);
+                // console.log(strArr)
+                for(var j = 0; j < nameDiv.length; j++){
+                    if(j == thisIndex){
+                        nameDiv[preIndex].style.color = "#333";
+                        nameDiv[preIndex].style.background = "none";
+                        nameDiv[thisIndex].style.background = getRandomColor();
+                        nameDiv[thisIndex].style.color = "#fff";
+                        preIndex = thisIndex;
+                    }
+                }
+            },150);
+            // 点击结束
+            aStop.onclick = function(){
+                clearInterval(interval);
+                aStop.style.background = "rgb(90, 173, 200)";
+
+            }
+        }
+    </script>
+</body>
+</html>

@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>运动应用之多物体运动</title>
+    <style>
+        div{
+            width: 150px;
+            height: 150px;
+            background-color: pink;
+            float: left;
+            margin: 10px;
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body>
+    <div>1</div>
+    <div>2</div>
+    <div>3</div>
+    <div>4</div>
+    <script>
+        var oDiv = document.getElementsByTagName("div"),
+            time = null;
+            for(var i = 0; i < oDiv.length; i++){
+                oDiv[i].onmouseover = function(){
+                    // var _this = this;
+                    // // console.log(getComputedStyle(this,null)["width"])
+                    // // x.style.width只读内联样式属性
+                    // clearInterval(time);
+                    // time = setInterval(function(){
+                    //     // 如果直接使用this,这个this是指向window的,width就不能取到
+                    //     var speed = (400 - _this.offsetWidth) / 10;
+                    //     speed = speed > 0 ? Math.ceil(speed) : Math.floor(speed);
+                    //     if(_this.offsetWidth == 400){
+                    //         clearInterval(time);
+                    //     }else{
+                    //         _this.style.width = _this.offsetWidth + speed + "px";
+                    //     }
+                    // },30)
+                    move(500,this)
+                }
+                oDiv[i].onmouseout = function(){
+                    move(150,this)
+                }
+            }
+
+        function move(target,obj){
+            // console.log(getComputedStyle(obj,null)["width"])
+            // x.style.width只读内联样式属性
+            clearInterval(time);
+            time = setInterval(function(){
+                var speed = (target - obj.offsetWidth) / 10;
+                speed = speed > 0 ? Math.ceil(speed) : Math.floor(speed);
+                if(obj.offsetWidth == target){
+                    clearInterval(time);
+                }else{
+                    obj.style.width = obj.offsetWidth + speed + "px";
+                }
+            },30)
+        }
+    </script>
+</body>
+</html>

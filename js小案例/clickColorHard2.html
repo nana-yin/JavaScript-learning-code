@@ -1,0 +1,67 @@
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>点击模块更换颜色——把函数放进事件</title>
+    <style>
+        .div1,.div2,.div3{
+            width: 100%;
+            height: 100px;
+            background: yellow;
+        }
+        .div2{
+            background: pink;
+            margin-top: 20px;
+        }
+        .btn_box{
+            text-align: center;
+            margin-top: 30px;
+        }
+        .btn{
+            background: lightblue;
+            border-radius: 10px;
+            outline: none;
+            border: none;
+            padding: 10px 30px;
+            font-size: 36px;
+            color: #fff;
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body>
+    <div class="div1"></div>
+    <div class="div2"></div>
+    <div class="btn_box">
+        <button class="btn">控制div1</button>
+        <button class="btn">控制div2</button>
+        <button class="btn">控制body</button>
+    </div>
+    <script>
+        var body = document.getElementsByTagName('body')[0],
+            divOne = document.getElementsByClassName('div1')[0],
+            divTwo = document.getElementsByClassName('div2')[0],
+            aBtn = document.getElementsByClassName('btn'),
+            i = 0;
+        var colorArray = ['red','green','blue'];
+        function showDiv(div){
+            if(i < colorArray.length){
+                div.style.background = colorArray[i];
+                i++;
+            }else{
+                div.style.background = "#fff";
+                i = 0;
+            }
+        }
+        function btnFuc(btn,div){
+            btn.onclick = function(){
+                showDiv(div);
+            }
+        }
+        btnFuc(aBtn[0],divOne);
+        btnFuc(aBtn[1],divTwo);
+        btnFuc(aBtn[2],body);
+    </script>
+</body>
+</html>

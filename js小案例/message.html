@@ -1,0 +1,102 @@
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>留言板</title>
+    <style>
+        *{
+            padding: 0;
+            margin: 0;
+        }
+        .success,.space{
+            font-size: 46px;
+            margin: 46px auto;
+            font-weight: bold;
+            color: #333;
+            text-align: center;
+        }
+        .input_box{
+            width: 600px;
+            margin: 30px auto;
+            text-align: center;
+            position: relative;
+        }
+        .input_box input{
+            outline: none;
+            border: none;
+            width: 600px;
+            height: 60px;
+            background-color: #f7f7f7;
+            box-shadow: 0px 2px 2px rgba(0, 0, 0, 0.2);
+            border-radius: 10px 0px 0px 0px;
+            text-indent: 2em;
+        }
+        #btn{
+            outline: none;
+            border: none;
+            height: 60px;
+            vertical-align: middle;
+            padding: 0px 10px;
+            font-size: 18px;
+            color: #fff;
+            background: rgb(173, 37, 37);
+            border-radius: 0px 10px 0px 0px;
+            box-shadow: 0px 2px 2px rgba(0, 0, 0, 0.2);
+            position: absolute;
+            right: 0;
+            top: 0;
+        }
+        .content_box{
+            width: 600px;
+            height: 200px;
+            margin: 0 auto;
+            background: #f5f5f5;
+            border-radius: 0px 0px 10px 10px;
+            border-top: 0px solid transparent;
+        }
+        .text{
+            padding-top: 10px;
+            text-indent: 2em;
+            text-align: left;
+        }
+    </style>
+</head>
+<body>
+    <div class="success" style="display: none;">提交成功！</div>
+    <div class="space" style="display: none;">内容为空！</div>
+    <div class="input_box">
+        <input type="text" placeholder="请输入一句话来表达你的心情">
+        <button type="submit" id="btn">提交</button>
+        <div class="content_box"></div>
+    </div>
+
+    <script>
+        var success = document.getElementsByClassName('success')[0],
+            space = document.getElementsByClassName('space')[0],
+            input = document.getElementsByTagName('input')[0],
+            aBtn = document.getElementById('btn'),
+            content = document.getElementsByClassName('content_box')[0];
+        aBtn.onclick = function(){
+            var nDiv = document.createElement("div"),
+                reg = /^\s*$/;
+            nDiv.setAttribute('class','text');
+            nDiv.innerText = input.value;
+            if(content.childNodes.length == 0){
+                content.appendChild(nDiv);
+            }else{
+                var oDiv = document.getElementsByClassName('text')[0];
+                content.insertBefore(nDiv,oDiv);
+            }
+            if(reg.test(input.value)){
+                space.style.display = "block";
+                success.style.display = "none";
+            }else{
+                space.style.display = "none";
+                success.style.display = "block";
+            }
+            input.value = '';
+        }
+    </script>
+</body>
+</html>

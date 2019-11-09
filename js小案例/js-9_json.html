@@ -1,0 +1,28 @@
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>json</title>
+</head>
+<body>
+    <script>
+    /* 
+        1.不需要声明变量
+        2.末尾不需要分号
+        3.对象的属性必须加双引号
+     */
+    var simple = {
+        a: [1,2],
+        b: 100,
+        c: 10,
+    };
+    for(var i in simple){
+        document.write(i + "的值为：" + simple[i] + "<br/>")
+    }
+    console.log(simple.a); //10
+    // console.log(simple.a instanceof Array)
+    // console.log((simple.a + simple.b) / simple.c);
+    </script>
+</body>
+</html>

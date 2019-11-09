@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>JS运动3 右侧悬浮框</title>
+    <style>
+        .box{
+            width: 500px;
+            height: 200px;
+            background-color: lightseagreen;
+            position: absolute;
+            right: 0;
+            bottom: 0;
+        }
+        #close{
+            font-size: 24px;
+            color: #fff;
+            outline: none;
+            border: none;
+            padding: 10px 20px;
+            background-color: rgba(0, 0, 0, 0.9);
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body style="height: 3000px;">
+    <div class="box">
+        <button type="button" id="close">关闭</button>
+    </div>
+    <script>
+        var box = document.getElementsByClassName("box")[0],
+            close = document.getElementById("close"),
+            time = null;
+        close.onclick = function(){
+            box.style.display = "none";
+        }
+
+        // 为窗口添加滚动条事件：window.onscroll=function(){};
+        // 注意在获取滚动条距离的时候
+        // 谷歌不识别document.documentElement.scrollTop,必须要加上document.body.scrollTop,即
+        // var scrolltop=document.documentElement.scrollTop||document.body.scrollTop;
+        // 这样才能兼容各个浏览器！
+        window.onscroll = function(){
+            // 页面窗口最上方(包括地址栏)到滚动条的上方的距离  documentElement对应的是html标签
+            var scrolltop = document.documentElement.scrollTop || document.body.scrollTop;
+            // 可见区域高度(不包括地址栏) ——>document.documentElement.clientHeight 
+            // 返回改元素的像素高度——>box.offsetHeight:content+padding+border
+            // clientHeight：content+padding
+            var distance = document.documentElement.clientHeight - box.offsetHeight + scrolltop;
+            move(distance);
+            // box.style.top=document.documentElement.clientHeight - box.offsetHeight+scrolltop+'px';
+            console.log("scrollTop = " + scrolltop + "可见区域高度：" + document.documentElement.clientHeight);
+        }
+
+        function move(scrollAllTop){
+            clearInterval(time); // 清除其他的计时器,保证只有一个计时器再运行
+            time = setInterval(function(){
+                var speed = (scrollAllTop - box.offsetTop) / 5;
+                speed = Math.ceil(speed);
+                if(box.offsetTop == scrollAllTop){
+                    clearInterval(time);
+                }else{
+                    box.style.top = box.offsetTop + speed + "px";
+                }
+            },30);
+        }
+    </script>
+</body>
+</html>
