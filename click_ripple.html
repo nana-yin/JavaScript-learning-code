@@ -1,0 +1,70 @@
+<!DOCTYPE html> 
+<html> 
+<head> 
+    <title>点击按钮产生涟漪效果</title> 
+    <style> 
+      .btn { 
+          cursor: pointer; 
+          padding: 12px 50px; 
+          background-color: #c50000; 
+          border-radius: 8px; 
+          border: none; 
+          outline: none; 
+          font-size: 24px; 
+          color: #fff; 
+          position: relative; /* 用于定位span标签 */
+          overflow: hidden;  /* 防止span超出按钮 */
+      }
+      .btn span { 
+          position: absolute;
+          width: 100px; 
+          height: 100px;  
+          margin-top: -50px; 
+          margin-left: -50px; 
+          background-color: rgb(0,0,0,0.3);
+          border-radius: 50%;  
+          animation: ripple 1s; 
+          opacity: 0; 
+      } 
+      @keyframes ripple {  /* 涟漪动画 */
+          from { 
+              opacity: 1; 
+              transform: scale(0); 
+          } 
+          to { 
+              opacity: 0; 
+              transform: scale(10); 
+          } 
+      } 
+  </style> 
+</head> 
+
+<body> 
+    <button class="btn">点击按钮</button> 
+</body> 
+<script> 
+  const btn = document.querySelector(".btn"); 
+  // Listen for click event 
+  btn.onclick = function (e) { 
+      // 新增span标签
+      let ripple = document.createElement("span"); 
+      // 为span标签添加涟漪的样式
+      ripple.classList.add("ripple"); 
+      // 将span标签放在按钮里面
+      this.appendChild(ripple); 
+
+      // 获取光标点击的水平坐标
+      let x = e.clientX - e.target.offsetLeft; 
+      // 获取光标点击的y位置
+      let y = e.clientY - e.target.offsetTop; 
+      // 设置span元素的位置
+      ripple.style.left = `${x}px`; 
+      ripple.style.top = `${y}px`; 
+      
+      setTimeout(() => { 
+          ripple.remove(); 
+      }, 3000); 
+
+  }; 
+</script>
+</html>
