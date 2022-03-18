@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8">
+    <title>JS鼠标拖拽事件</title>       
+    <style>
+      #box {
+        position:absolute;
+        width:200px;
+        height:200px;
+        background:pink;
+      }
+    </style>
+  </head>
+  <body>
+    <div id="box"></div>
+    <script>
+      window.onload = () => {
+        let boxDom = document.getElementById("box") // 首先获取dom元素
+        boxDom.onmousedown = e => { // 鼠标按下事件
+          // clientX表示鼠标的x坐标，clientY表示鼠标的y坐标
+          // offsetLeft表示当前的box与浏览器左边的距离，offsetTop表示当前的box与浏览器上边的距离
+          var disX = e.clientX - boxDom.offsetLeft; // 计算X轴，div盒子左边框与鼠标之间的距离
+          var disY = e.clientY - boxDom.offsetTop;  // 计算Y轴，div盒子上边框与鼠标之间的距离  
+          document.onmousemove = e => { // 鼠标移动
+            var l = e.clientX - disX;  // 计算X轴，浏览器左边窗口与div盒子左边边框的距离
+            var t = e.clientY - disY;  // 计算Y轴，浏览器上边窗口与div盒子上边边框的距离
+            boxDom.style.left = l + "px";
+            boxDom.style.top = t + "px";
+          }
+          document.onmouseup = () => document.onmousemove = null;  // 鼠标抬起
+          return false                     //阻止默认事件的发生       
+        }
+      }
+    </script>
+  </body>
+</html>
